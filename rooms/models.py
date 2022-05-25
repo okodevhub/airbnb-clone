@@ -5,7 +5,7 @@ from core import models as core_models
 from users import models as user_models
 
 
-class AbastractItem(core_models.TimeStampedModel):
+class AbstractItem(core_models.TimeStampedModel):
     """Abstarct Item"""
 
     name = models.CharField(max_length=80)
@@ -17,7 +17,30 @@ class AbastractItem(core_models.TimeStampedModel):
         return self.name
 
 
-class RoomType(AbastractItem):
+class RoomType(AbstractItem):
+
+    """RoomType Model Definition"""
+
+    pass
+
+
+class Amenity(AbstractItem):
+
+    """Amenity Model Definition"""
+
+    pass
+
+
+class Facility(AbstractItem):
+
+    """Facility Model Definition"""
+
+    pass
+
+
+class HouseRule(AbstractItem):
+
+    """HouseRule MOdel Defitinion"""
 
     pass
 
@@ -41,7 +64,10 @@ class Room(core_models.TimeStampedModel):
     check_out = models.TimeField()
     instant_book = models.BooleanField(default=False)
     host = models.ForeignKey(user_models.User, on_delete=models.CASCADE)
-    room_type = models.ManyToManyField(RoomType, blank=True)
+    room_type = models.ForeignKey(RoomType, on_delete=models.SET_NULL, null=True)
+    amanities = models.ManyToManyField(Amenity)
+    facilities = models.ManyToManyField(Facility)
+    house_rules = models.ManyToManyField(HouseRule)
 
     def __str__(self):
         return self.name
