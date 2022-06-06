@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block page_name %}
+    Home
+{% endblock %}
+
+{% block content %}
+<div>
+    {% include 'mixins/room/room_form.html' with form=form cta="Update room" %}
+</div>
+    
+{% endblock %}

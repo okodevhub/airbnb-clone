@@ -14,6 +14,9 @@
         {% if room.host.superhost %}
             (superhost)
         {% endif %}
+        {% if room.host == user %}
+            <button onclick="location.href='{% url "rooms:edit" room.pk %}'">Edit Room</a></button>
+        {% endif %}
     </h2>
     <h3>Amenities</h3>
     {% for a in room.amenities.all %}
