@@ -1,5 +1,6 @@
 from django.views.generic import ListView, DetailView, UpdateView, View
 from django.shortcuts import render
+from django.core.paginator import Paginator
 from . import models, forms
 
 # Create your views here.
@@ -81,13 +82,19 @@ class SearchView(View):
                 if superhost is True:
                     filter_args["host__superhost"] = True
 
-                rooms = models.Room.objects.filter(**filter_args)
+                qs = models.Room.objects.filter(**filter_args).order_by("-created")
 
                 for amenity in amenities:
-                    rooms = rooms.filter(amenities=amenity)
+                    qs = qs.filter(amenities=amenity)
 
                 for facility in facilities:
-                    rooms = rooms.filter(facilities=facility)
+                    qs = qs.filter(facilities=facility)
+
+                paginator = Paginator(qs, 10, orphans=5)
+
+                page = request.GET.get("page", 1)
+
+                rooms = paginator.get_page(page)
 
                 return render(
                     request,
@@ -97,7 +104,8 @@ class SearchView(View):
 
         else:
             form = forms.SeachForm()
-            return render(request, "rooms/search.html", {"form": form})
+
+        return render(request, "rooms/search.html", {"form": form})
 
 
 class EditRoomView(UpdateView):
