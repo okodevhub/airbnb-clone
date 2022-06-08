@@ -43,6 +43,48 @@
                 {% endfor%}
             </select>
         </div>
+        <div>
+            <lable for="price">Price</lable>
+            <input value="{{price}}" type="number" name="price" id="price" placeholder="Price" />
+        </div>
+        <div>
+            <lable for="guests">Guests</lable>
+            <input value="{{geusts}}" type="number" name="guests" id="guests" placeholder="Guests" />
+        </div>
+        <div>
+            <lable for="bedrooms">Bedrooms</lable>
+            <input value="{{bedrooms}}" type="number" name="bedrooms" id="bedrooms" placeholder="Bedrooms" />
+        </div>
+        <div>
+            <lable for="beds">Beds</lable>
+            <input value="{{beds}}" type="number" name="beds" id="beds" placeholder="Beds" />
+        </div>
+        <div>
+            <lable for="baths">Baths</lable>
+            <input value="{{baths}}" type="number" name="baths" id="baths" placeholder="Baths" />
+        </div>
+        <div>
+            <h3>Amenities</h3>
+            <ul>
+                {% for amenity in amenities %}
+                    <li>
+                        <lable for="a_{{amenity.pk}}">{{amenity.name}}</lable>
+                        <input id="a_{{amenity.pk}}" name="amenities" type="checkbox" value={{amenity.pk}} />
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <h3>Facilities</h3>
+            <ul>
+                {% for facility in facilities %}
+                    <li>
+                        <lable for="f_{{facility.pk}}">{{facility.name}}</lable>
+                        <input id="f_{{facility.pk}}" name="facilities" type="checkbox" value={{facility.pk}} />
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
         <button>Search</button>
     </form>
 
