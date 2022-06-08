@@ -1,4 +1,5 @@
 from django.views.generic import ListView, DetailView, UpdateView
+from django.shortcuts import render
 from django.http import Http404
 from . import models
 
@@ -19,6 +20,13 @@ class RoomDetail(DetailView):
     """RoomDetail Definition"""
 
     model = models.Room
+
+
+def search(request):
+
+    city = request.GET.get("city")
+    city = str.capitalize(city)
+    return render(request, "rooms/search.html", {"city": city})
 
 
 class EditRoomView(UpdateView):
