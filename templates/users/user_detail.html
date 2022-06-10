@@ -1,14 +1,45 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-    Profile
+    {{user_obj.first_name}}'s Profile
 {% endblock page_title %}
 
 
 {% block content %}
 
-    <div>
-        {{user_obj.first_name}}
+    <style>
+    .avatar {
+        width:65px;
+        height: 65px;
+        color:white;
+        background-color: gray;
+        border-radius: 50%;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        font-size: 25px;
+    }
+    </style>        
+    <div class="avatar">
+        {% if user_obj.avatar %}
+            <img src="{{user_obj.avatar.url}}" />
+        {% else %}
+            <span>{{user_obj.first_name|first}}</span>
+        {% endif %}
     </div>
+                
+    <h2>
+        
+        {{user_obj.first_name}}
+        
+        {% if user_obj.superhost %}
+            (superhost)
+        {% endif %}
+            
+    </h2>
+    <p>{{user_obj.bio}}</p>
+
+    <a href="#">Edit Profile</a>
 
 {% endblock content %}
