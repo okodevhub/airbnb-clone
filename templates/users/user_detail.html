@@ -42,7 +42,7 @@
         <p>{{user_obj.bio}}</p>
         
         {% if user == user_obj %}
-            <a href="#">Edit Profile</a>
+            <a href="{% url "users:update" %}">Edit Profile</a>
         {% endif %}
     </div>
     
