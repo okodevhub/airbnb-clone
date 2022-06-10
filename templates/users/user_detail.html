@@ -20,26 +20,41 @@
         align-items: center;
         font-size: 25px;
     }
-    </style>        
-    <div class="avatar">
-        {% if user_obj.avatar %}
-            <img src="{{user_obj.avatar.url}}" />
-        {% else %}
-            <span>{{user_obj.first_name|first}}</span>
+    </style>
+    <div>    
+        <div class="avatar">
+            {% if user_obj.avatar %}
+                <img src="{{user_obj.avatar.url}}" />
+            {% else %}
+                <span>{{user_obj.first_name|first}}</span>
+            {% endif %}
+        </div>
+                    
+        <h2>
+
+            {{user_obj.first_name}}
+            
+            {% if user_obj.superhost %}
+                (superhost)
+            {% endif %}
+                
+        </h2>
+        <p>{{user_obj.bio}}</p>
+        
+        {% if user == user_obj %}
+            <a href="#">Edit Profile</a>
         {% endif %}
     </div>
-                
-    <h2>
-        
-        {{user_obj.first_name}}
-        
-        {% if user_obj.superhost %}
-            (superhost)
-        {% endif %}
-            
-    </h2>
-    <p>{{user_obj.bio}}</p>
-
-    <a href="#">Edit Profile</a>
-
+    
+    {% if user_obj.rooms.count > 0 %}
+        <div>
+            <h3>{{user_obj.first_name}}'s Rooms</h3>
+            <ul>
+                {% for room in user_obj.rooms.all %}
+                <li>{{room.name}}</li>
+                {% endfor %}
+            </ul> 
+        </div>
+    {% endif %}
+    
 {% endblock content %}
